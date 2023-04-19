@@ -1,0 +1,159 @@
+# Docker Commands Cheat Sheet
+
+## Container Lifecycle
+
+### Create a Container
+docker create [OPTIONS] IMAGE [COMMAND] [ARG...]
+Example:
+docker create -it ubuntu bash
+
+### Start a Container
+docker start [OPTIONS] CONTAINER [CONTAINER...]
+Example:
+docker start container_name
+
+### Stop a Container
+docker stop [OPTIONS] CONTAINER [CONTAINER...]
+Example:
+docker stop container_name
+
+### Restart a Container
+docker restart [OPTIONS] CONTAINER [CONTAINER...]
+Example:
+docker restart container_name
+
+### Pause a Container
+docker pause CONTAINER [CONTAINER...]
+Example:
+docker pause container_name
+
+### Unpause a Container
+docker unpause CONTAINER [CONTAINER...]
+Example:
+docker unpause container_name
+
+### Kill a Container
+docker kill [OPTIONS] CONTAINER [CONTAINER...]
+Example:
+docker kill container_name
+
+### Remove a Container
+docker rm [OPTIONS] CONTAINER [CONTAINER...]
+Example:
+docker rm container_name
+
+### Remove All Stopped Containers
+docker container prune [OPTIONS]
+Example:
+docker container prune
+
+### List Containers
+docker ps [OPTIONS]
+Example:
+docker ps
+
+### List All Containers (Including Stopped Containers)
+docker ps -a
+Example:
+docker ps -a
+
+### Show Container Logs
+docker logs [OPTIONS] CONTAINER
+Example:
+docker logs container_name
+
+### Show Container Details
+docker inspect [OPTIONS] CONTAINER [CONTAINER...]
+Example:
+docker inspect container_name
+
+### Rename a Container
+docker rename CONTAINER NEW_NAME
+Example:
+docker rename old_container_name new_container_name
+
+### Expose Ports on a Container
+docker run [OPTIONS] -p HOST_PORT:CONTAINER_PORT IMAGE [COMMAND] [ARG...]
+Example:
+docker run -p 8080:80 nginx
+
+## Image Lifecycle
+
+### List Images
+docker images [OPTIONS] [REPOSITORY[:TAG]]
+Example:
+docker images
+
+### Pull an Image
+docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+Example:
+docker pull nginx
+
+### Push an Image
+docker push [OPTIONS] NAME[:TAG]
+Example:
+docker push username/repository:tag
+
+### Build an Image
+docker build [OPTIONS] PATH | URL | -
+Example:
+docker build -t myimage .
+
+### Remove an Image
+docker rmi [OPTIONS] IMAGE [IMAGE...]
+Example:
+docker rmi image_name
+
+### Remove All Unused Images
+docker image prune [OPTIONS]
+Example:
+docker image prune
+
+### Tag an Image
+docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+Example:
+docker tag old_image_name:tag new_image_name:tag
+
+### Inspect an Image
+docker image inspect [OPTIONS] IMAGE [IMAGE...]
+Example:
+docker image inspect image_name
+
+## Volume Lifecycle
+
+### Create a Volume
+docker volume create [OPTIONS] [VOLUME]
+Example:
+docker volume create my_volume
+
+### Inspect a Volume
+docker volume inspect [OPTIONS] VOLUME [VOLUME...]
+Example:
+docker volume inspect volume_name
+
+### List Volumes
+docker volume ls [OPTIONS]
+Example:
+docker volume ls
+
+### Remove a Volume
+docker volume rm [OPTIONS] VOLUME [VOLUME...]
+Example:
+docker volume rm volume_name
+
+## Network Lifecycle
+
+### Create a Network
+docker network create [OPTIONS] NETWORK
+Example:
+docker network create my_network
+
+### Inspect a Network
+docker network inspect [OPTIONS] NETWORK [NETWORK...]
+Example:
+docker network inspect network_name
+
+### List Networks
+docker network ls [OPTIONS]
+Example:
+docker network
