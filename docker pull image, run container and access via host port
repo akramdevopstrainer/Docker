@@ -1,0 +1,29 @@
+# Step 1: Running a "Hello World" Docker container
+docker run hello-world
+
+# Step 2: Pulling the Nginx Docker image from Docker Hub
+docker pull nginx
+
+# Step 3: Listing Docker images
+docker images
+
+# Step 4: Running an Nginx container in detached mode and mapping host port 80 to container port 80
+docker run -d -p 80:80 nginx
+
+# Step 5: Listing running Docker containers
+docker ps
+
+# Step 6: Starting a stopped container using its Container ID
+docker start fb28d713c6fe
+# Replace "fb28d713c6fe" with the actual Container ID of the stopped container.
+
+# Step 7: Stopping a running container using its Container ID
+docker stop fb28d713c6fe
+# Replace "fb28d713c6fe" with the actual Container ID of the running container.
+
+# Step 8: Running an Nginx container in detached mode and mapping host port 8080 to container port 80
+docker run -d -p 8080:80 nginx
+
+# Step 9: Retrieving the public IP address of the EC2 instance
+curl http://169.254.169.254/latest/meta-data/public-ipv4
+
