@@ -1,0 +1,57 @@
+Here's the SOP for creating and configuring a Docker user. docker-cicd is used as an example, use anything you like.
+
+```
+# Creating and Configuring a Docker User
+
+## Objective
+The objective of this lab is to create and configure a Docker user, allowing students to practice Docker commands with appropriate permissions.
+
+## Prerequisites
+- Access to a Red Hat Linux Version 9 system.
+- Administrative privileges or access to the root user.
+
+## Procedure
+
+1. Log in to the Red Hat Linux Version 9 system using your provided credentials.
+
+2. Open a terminal or command line interface.
+
+3. Set up the Docker User:
+   ```
+   sudo -i
+   useradd -m docker-cicd
+   passwd docker-cicd
+   usermod -aG docker docker-cicd
+   ```
+
+4. Verify the User Creation:
+   ```
+   cut -d: -f1 /etc/passwd | sort
+   ```
+
+5. Verify Docker Group Membership:
+   ```
+   grep '^docker:' /etc/group | cut -d: -f4 | tr ',' '\n'
+   ```
+
+6. Switch to the Docker User:
+   ```
+   exit
+   su - docker-cicd
+   ```
+
+7. Test Docker Functionality:
+   ```
+   docker run hello-world
+   ```
+
+## Conclusion
+In this lab, you have successfully created and configured a Docker user named "docker-cicd." 
+The user has been added to the "docker" group, allowing them to run Docker commands with the necessary permissions. 
+You have verified the user creation, group membership, and tested Docker functionality. 
+The "docker-cicd" user is now ready to perform Docker-related tasks in the lab environment.
+
+Feel free to reach out if you have any questions or require further assistance!
+``
+
+Let me know if there's anything else I can help you with!
