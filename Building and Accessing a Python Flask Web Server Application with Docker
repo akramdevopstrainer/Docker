@@ -1,0 +1,82 @@
+``` Building and Accessing a Python Flask Web Server Application with Docker ```
+
+# Step 1: Connect to your EC2 instance and navigate to a directory to store your project files
+mkdir mywebserver
+cd mywebserver
+
+# Step 2: Create app.py
+vi app.py
+```
+Add the following code to `app.py`:
+```
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000)
+```
+
+```
+# Step 3: Create index.html
+vi index.html
+```
+Add the following code to `index.html`, customize based on your need:
+```
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dockerfile Demo</title>
+</head>
+<body>
+    <h1>Hello Students,</h1>
+    <p>My name is Akram, I am your DevOps trainer, and this is a Dockerfile Demo!</p>
+    <p>I hope you've liked the demo.</p>
+    <p>Thank you</p>
+</body>
+</html>
+```
+
+```
+# Step 4: Create Dockerfile
+vi Dockerfile
+```
+Copy and paste the following content into `Dockerfile`:
+```Dockerfile
+FROM python:3.9-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the necessary files to the container
+COPY app.py /app/
+COPY index.html /app/templates/
+
+# Install the required Python packages
+RUN pip install flask
+
+# Expose the port the Flask app runs on
+EXPOSE 8000
+
+# Define the command to run the Flask app
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]
+```
+
+```
+# Step 5: Build the Docker image
+docker build -t mywebserver .
+
+# Step 6: Run the Docker container and map the ports
+docker run -d -p 9000:8000 mywebserver
+
+# Step 7: Access the web server application
+# Use your EC2 instance's public IP address and the mapped port (9000 in this example)
+# Open a web browser and visit: http://<your-ec2-public-ip>:9000
+```
+
+Follow the above steps to build and access your web server application on a Docker container via a browser. 
+Remember to replace `<your-ec2-public-ip>` with your actual EC2 instance's public IP address when accessing the application.
