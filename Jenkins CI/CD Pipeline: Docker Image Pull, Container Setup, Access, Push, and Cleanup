@@ -1,0 +1,111 @@
+```
+## Jenkins CI/CD Pipeline SOP
+
+This SOP outlines the steps to pull the Jenkins image, run it as a container, access it via browser, and push a new image to Docker Hub.
+
+### Step 1: Pull Jenkins Image
+
+Pull the Jenkins image from Docker Hub using the following command:
+
+```
+docker pull jenkins/jenkins
+```
+
+### Step 2: Rename the Image
+
+Rename the pulled Jenkins image to `jenkins-cicd:1.0` using the following command:
+
+```
+docker image tag jenkins/jenkins jenkins-cicd:1.0
+```
+
+### Step 3: Run Jenkins Container
+
+Run the Jenkins container by mapping port 8080 on the host to port 8080 in the container using the following command:
+
+```
+docker run -d -p 8080:8080 --name jenkins-container jenkins-cicd:1.0
+```
+
+### Step 4: Login to Jenkins Container and Get Initial Password
+
+Access the Jenkins container's shell by running the following command:
+
+```
+docker exec -it jenkins-container /bin/bash
+```
+
+Once inside the container, retrieve the Jenkins initial password by executing the following command:
+
+```
+cat /var/jenkins_home/secrets/initialAdminPassword
+```
+
+Make a note of the displayed password for later use.
+
+### Step 5: Exit Jenkins Container
+
+Exit the Jenkins container by typing `exit` in the container shell.
+
+### Step 6: Get Public IP of EC2 Instance
+
+Retrieve the public IP of the EC2 instance using the following command:
+
+```
+curl ifconfig.me
+```
+
+Make a note of the displayed public IP for accessing Jenkins.
+
+### Step 7: Accessing Jenkins via Browser
+
+Open a web browser and enter the following URL:
+
+```
+http://<EC2_PUBLIC_IP>:8080
+```
+
+Replace `<EC2_PUBLIC_IP>` with the actual public IP obtained in the previous step.
+
+### Step 8: Stop Jenkins Container
+
+Stop the running Jenkins container using the following command:
+
+```
+docker stop jenkins-container
+```
+
+### Step 9: Convert Stopped Container to a New Image
+
+Convert the stopped Jenkins container to a new image with the name `jenkins:2.0` using the following command:
+
+```
+docker commit jenkins-container jenkins:2.0
+```
+
+### Step 10: Push New Image to Docker Hub
+
+Push the newly created `jenkins:2.0` image to Docker Hub by tagging and pushing it using the following commands:
+
+```
+docker image tag jenkins:2.0 <YOUR_DOCKERHUB_USERNAME>/jenkins:2.0
+docker push <YOUR_DOCKERHUB_USERNAME>/jenkins:2.0
+```
+
+Replace `<YOUR_DOCKERHUB_USERNAME>` with your Docker Hub username.
+
+### Step 11: Delete Jenkins Image
+
+Delete the local `jenkins:2.0` image using the following command:
+
+```
+docker image rm jenkins:2.0
+```
+
+---
+
+Congratulations! You have successfully completed the Jenkins CI/CD Pipeline SOP.
+
+```
+
+Please note that you should replace `<EC2_PUBLIC_IP>` and `<YOUR_DOCKERHUB_USERNAME>` with the actual values specific to your environment.
