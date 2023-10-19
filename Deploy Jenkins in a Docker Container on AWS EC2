@@ -1,0 +1,71 @@
+
+
+# Deploy Jenkins in a Docker Container on AWS EC2
+
+This guide will help you deploy Jenkins in a Docker container on an AWS EC2 instance and access it via the web UI. 
+Please make sure you have the necessary prerequisites in place before starting.
+
+## Prerequisites
+
+- An AWS account
+- An AWS EC2 instance with SSH access
+- Docker installed on your EC2 instance
+
+## Step 1: SSH into Your EC2 Instance
+
+``` 
+ssh -i your-aws-key.pem ec2-user@your-ec2-public-ip
+```
+
+## Step 2: Install Docker on EC2 Instance
+
+``` 
+sudo yum update -y
+sudo amazon-linux-extras install docker -y
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+```
+
+Log out and back in for the group membership changes to take effect.
+
+## Step 3: Pull the Jenkins Docker Image
+
+``` 
+docker pull jenkins/jenkins:lts
+```
+
+## Step 4: Create a Docker Volume (Optional)
+
+``` 
+docker volume create jenkins-data
+```
+
+## Step 5: Run the Jenkins Docker Container
+
+``` 
+docker run -d -p 8080:8080 -p 50000:50000 -v jenkins-data:/var/jenkins_home --name jenkins jenkins/jenkins:lts
+```
+
+## Step 6: Access Jenkins Web UI
+
+Open your web browser and access the Jenkins UI using your EC2 instance's public IP address:
+
+```
+http://your-ec2-public-ip:8080
+```
+
+To unlock Jenkins, SSH into your EC2 instance and run:
+
+```
+docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+```
+
+Copy the password and paste it into the Jenkins web interface. Follow the setup wizard to complete the installation.
+
+## Step 7: Configure Jenkins
+
+Once Jenkins is running, configure it as needed. You can install plugins and set up your Jenkins jobs.
+
+---
+
+That's it! You've successfully deployed Jenkins in a Docker container on your AWS EC2 instance and can access it via the web UI.
